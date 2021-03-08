@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from './images/header/logo.svg';
+import avatar from './images/profile/__avatar/whale.jpg';
 import './index.css';
 
 function App() {
@@ -15,8 +16,7 @@ function App() {
         <section className="profile">
           <div className="profile__info">
             <div className="profile__avatar">
-              {/* <img src="<%=require('./images/profile/__avatar/whale.jpg')%>" className="profile__avatar-img"
-        alt="Whale - lord of the ocean"> */}
+              <img className="profile__avatar-img" src={avatar} alt="Whale - lord of the ocean" />
               <div className="profile__overlay">
               </div>
             </div>
@@ -33,7 +33,7 @@ function App() {
 
         <section className="grid">
           <ul className="elements">
-            {/* <!-- block for template Cards --> */}
+            {/* block for template Cards */}
           </ul>
         </section>
 
@@ -116,7 +116,7 @@ function App() {
           <div className="popup__wrapper">
             <figure className="popup__figure">
               <button type="button" className="popup__close-icon"></button>
-              {/* <img className="popup__img" src="#" alt="шаблон"> */}
+              <img className="popup__img" src="#" alt="шаблон" />
             </figure>
             <figcaption className="popup__figcaption">
               <h2 className="popup__title-img"></h2>
