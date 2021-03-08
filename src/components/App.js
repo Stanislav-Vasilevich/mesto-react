@@ -1,48 +1,16 @@
 import React from 'react';
-import logo from './images/header/logo.svg';
-import avatar from './images/profile/__avatar/whale.jpg';
-import './index.css';
+import Header from './Header.js';
+import Main from './Main.js';
+import Footer from './Footer.js';
+import './../index.css';
 
 function App() {
   return (
     <div class="page">
 
-      <header className="header">
-        <img className="logo" src={logo} alt="Логотип" />
-      </header>
-
-      <main className="main">
-
-        <section className="profile">
-          <div className="profile__info">
-            <div className="profile__avatar">
-              <img className="profile__avatar-img" src={avatar} alt="Whale - lord of the ocean" />
-              <div className="profile__overlay">
-              </div>
-            </div>
-            <div className="profile__edit">
-              <div className="profile__title-edit">
-                <h1 className="profile__title">Whale</h1>
-                <button type="submit" className="profile__edit-button"></button>
-              </div>
-              <p className="profile__subtitle">Lord of the ocean</p>
-            </div>
-          </div>
-          <button type="submit" className="profile__add"></button>
-        </section>
-
-        <section className="grid">
-          <ul className="elements">
-            {/* block for template Cards */}
-          </ul>
-        </section>
-
-      </main>
-
-      <footer className="footer">
-        <p className="footer__copyright">&#169; 2020 Mesto Russia</p>
-      </footer>
-
+      <Header />
+      <Main />
+      <Footer />
 
       <div className="popup popup_type_edit-profile popup_delete">
         <div className="popup__overlay"></div>
