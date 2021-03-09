@@ -1,5 +1,4 @@
 import React from 'react';
-import './PopupWidthForm.css';
 
 function PopupWidthForm(props) {
   return (

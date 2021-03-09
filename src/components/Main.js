@@ -1,7 +1,6 @@
 import React from 'react';
 import PopupWidthForm from './PopupWithForm.js';
 import avatar from './../images/profile/__avatar/whale.jpg';
-import './Main.css';
 
 function Main(props) {
   return (
