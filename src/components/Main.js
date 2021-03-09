@@ -3,25 +3,7 @@ import PopupWidthForm from './PopupWithForm.js';
 import avatar from './../images/profile/__avatar/whale.jpg';
 import './Main.css';
 
-function Main() {
-  function handleEditAvatarClick() {
-    document
-      .querySelector('.popup_type_edit-avatar')
-      .classList.add('popup_opened');
-  }
-
-  function handleEditProfileClick() {
-    document
-      .querySelector('.popup_type_edit-profile')
-      .classList.add('popup_opened');
-  }
-
-  function handleAddPlaceClick() {
-    document
-      .querySelector('.popup_type_add-cards')
-      .classList.add('popup_opened');
-  }
-
+function Main(props) {
   return (
     <>
       <main className="main">
@@ -36,7 +18,7 @@ function Main() {
 
               <div
                 className="profile__overlay"
-                onClick={handleEditAvatarClick}
+                onClick={props.onEditAvatar}
               ></div>
             </div>
 
@@ -45,7 +27,7 @@ function Main() {
                 <h1 className="profile__title">Whale</h1>
                 <button
                   type="submit"
-                  onClick={handleEditProfileClick}
+                  onClick={props.onEditProfile}
                   className="profile__edit-button"
                 ></button>
               </div>
@@ -55,7 +37,7 @@ function Main() {
           <button
             type="submit"
             className="profile__add"
-            onClick={handleAddPlaceClick}
+            onClick={props.onAddPlace}
           ></button>
         </section>
 
@@ -64,7 +46,11 @@ function Main() {
         </section>
       </main>
 
-      <PopupWidthForm name="edit-avatar" title="Обновить аватар" form="form-edit-avatar">
+      <PopupWidthForm
+        name="edit-avatar"
+        title="Обновить аватар"
+        form="form-edit-avatar"
+      >
         <label className="form__label">
           <input
             type="url"
@@ -86,10 +72,7 @@ function Main() {
         </button>
       </PopupWidthForm>
 
-      <PopupWidthForm
-        name="edit-profile"
-        title="Редактировать профиль"
-      >
+      <PopupWidthForm name="edit-profile" title="Редактировать профиль">
         <label className="form__label">
           <input
             type="text"
