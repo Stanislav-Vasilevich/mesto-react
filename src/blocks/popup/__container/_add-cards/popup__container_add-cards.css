@@ -1,12 +1,12 @@
-.popup__container_form-edit-avatar {
+.popup__container_add-cards {
   background-color: #fff;
   border-radius: 10px;
   max-width: 430px;
-  max-height: 272px;
+  max-height: 330px;
 }
 
 @media screen and (max-width: 677px) {
-  .popup__container_form-edit-avatar {
+  .popup__container_add-cards {
     max-width: 280px;
   }
 }

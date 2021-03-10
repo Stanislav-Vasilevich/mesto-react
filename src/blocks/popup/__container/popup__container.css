@@ -1,6 +1,7 @@
-@import url('./_form/popup__container_form.css');
-@import url('./_form/popup__container_form-edit-avatar.css');
-@import url('./_form/popup__container_delete-img.css');
+@import url('./_edit-avatar/popup__container_edit-avatar.css');
+@import url('./_edit-profile/popup__container_edit-profile.css');
+@import url('./_add-cards/popup__container_add-cards.css');
+@import url('./_delete-cards/popup__container_delete-cards.css');
 
 .popup__container {
   position: absolute;

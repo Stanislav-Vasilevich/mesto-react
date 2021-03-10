@@ -68,7 +68,6 @@ function Main() {
       <PopupWidthForm
         name="edit-avatar"
         title="Обновить аватар"
-        form="form-edit-avatar"
       >
         <label className="form__label">
           <input
@@ -91,7 +90,10 @@ function Main() {
         </button>
       </PopupWidthForm>
 
-      <PopupWidthForm name="edit-profile" title="Редактировать профиль">
+      <PopupWidthForm 
+      name="edit-profile" 
+      title="Редактировать профиль"
+      >
         <label className="form__label">
           <input
             type="text"
@@ -129,7 +131,10 @@ function Main() {
         </button>
       </PopupWidthForm>
 
-      <PopupWidthForm name="add-cards" title="Новое место">
+      <PopupWidthForm 
+      name="add-cards" 
+      title="Новое место"
+      >
         <label className="form__label">
           <input
             type="text"
@@ -168,9 +173,8 @@ function Main() {
       </PopupWidthForm>
 
       <PopupWidthForm 
-        name="img" 
+        name="delete-img" 
         title="Вы уверены?" 
-        form="delete-img"
         >
         <button type="submit" class="submit submit-delete-card">
           Да
