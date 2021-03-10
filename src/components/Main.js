@@ -2,7 +2,24 @@ import React from 'react';
 import PopupWidthForm from './PopupWithForm.js';
 import avatar from './../images/profile/__avatar/whale.jpg';
 
-function Main(props) {
+function Main() {
+  function handleEditAvatarClick() {
+    document
+      .querySelector('.popup_type_edit-avatar')
+      .classList.add('popup_opened');
+  }
+
+  function handleEditProfileClick() {
+    document
+      .querySelector('.popup_type_edit-profile')
+      .classList.add('popup_opened');
+  }
+
+  function handleAddPlaceClick() {
+    document
+      .querySelector('.popup_type_add-cards')
+      .classList.add('popup_opened');
+  }
   return (
     <>
       <main className="main">
@@ -17,7 +34,8 @@ function Main(props) {
 
               <div
                 className="profile__overlay"
-                onClick={props.onEditAvatar}
+                // onClick={props.onEditAvatar}
+                onClick={handleEditAvatarClick}
               ></div>
             </div>
 
@@ -26,7 +44,8 @@ function Main(props) {
                 <h1 className="profile__title">Whale</h1>
                 <button
                   type="submit"
-                  onClick={props.onEditProfile}
+                  // onClick={props.onEditProfile}
+                  onClick={handleEditProfileClick}
                   className="profile__edit-button"
                 ></button>
               </div>
@@ -36,7 +55,8 @@ function Main(props) {
           <button
             type="submit"
             className="profile__add"
-            onClick={props.onAddPlace}
+            // onClick={props.onAddPlace}
+            onClick={handleAddPlaceClick}
           ></button>
         </section>
 
@@ -147,7 +167,11 @@ function Main(props) {
         </button>
       </PopupWidthForm>
 
-      <PopupWidthForm name="img" title="Вы уверены?" form="delete-img">
+      <PopupWidthForm 
+        name="img" 
+        title="Вы уверены?" 
+        form="delete-img"
+        >
         <button type="submit" class="submit submit-delete-card">
           Да
         </button>
