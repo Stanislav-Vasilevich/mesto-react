@@ -1,25 +1,8 @@
 import React from 'react';
-import PopupWidthForm from './PopupWithForm.js';
+import PopupWithForm from './PopupWithForm.js';
 import avatar from './../images/profile/__avatar/whale.jpg';
 
-function Main() {
-  function handleEditAvatarClick() {
-    document
-      .querySelector('.popup_type_edit-avatar')
-      .classList.add('popup_opened');
-  }
-
-  function handleEditProfileClick() {
-    document
-      .querySelector('.popup_type_edit-profile')
-      .classList.add('popup_opened');
-  }
-
-  function handleAddPlaceClick() {
-    document
-      .querySelector('.popup_type_add-cards')
-      .classList.add('popup_opened');
-  }
+function Main(props) {
   return (
     <>
       <main className="main">
@@ -34,8 +17,7 @@ function Main() {
 
               <div
                 className="profile__overlay"
-                // onClick={props.onEditAvatar}
-                onClick={handleEditAvatarClick}
+                onClick={props.onEditAvatar}
               ></div>
             </div>
 
@@ -44,8 +26,7 @@ function Main() {
                 <h1 className="profile__title">Whale</h1>
                 <button
                   type="submit"
-                  // onClick={props.onEditProfile}
-                  onClick={handleEditProfileClick}
+                  onClick={props.onEditProfile}
                   className="profile__edit-button"
                 ></button>
               </div>
@@ -55,8 +36,7 @@ function Main() {
           <button
             type="submit"
             className="profile__add"
-            // onClick={props.onAddPlace}
-            onClick={handleAddPlaceClick}
+            onClick={props.onAddPlace}
           ></button>
         </section>
 
@@ -65,10 +45,11 @@ function Main() {
         </section>
       </main>
 
-      <PopupWidthForm
-        name="edit-avatar"
-        title="Обновить аватар"
-      >
+      <PopupWithForm 
+        name="edit-avatar" 
+        title="Обновить аватар" 
+        isOpen="popup_opened"
+        >
         <label className="form__label">
           <input
             type="url"
@@ -88,12 +69,9 @@ function Main() {
         <button type="submit" className="form__submit" disabled>
           Сохранить
         </button>
-      </PopupWidthForm>
+      </PopupWithForm>
 
-      <PopupWidthForm 
-      name="edit-profile" 
-      title="Редактировать профиль"
-      >
+      <PopupWithForm name="edit-profile" title="Редактировать профиль" isOpen={false}>
         <label className="form__label">
           <input
             type="text"
@@ -129,12 +107,9 @@ function Main() {
         <button type="submit" className="form__submit">
           Сохранить
         </button>
-      </PopupWidthForm>
+      </PopupWithForm>
 
-      <PopupWidthForm 
-      name="add-cards" 
-      title="Новое место"
-      >
+      <PopupWithForm name="add-cards" title="Новое место" isOpen={false}>
         <label className="form__label">
           <input
             type="text"
@@ -170,16 +145,13 @@ function Main() {
         <button type="submit" className="form__submit " disabled>
           Создать
         </button>
-      </PopupWidthForm>
+      </PopupWithForm>
 
-      <PopupWidthForm 
-        name="delete-img" 
-        title="Вы уверены?" 
-        >
+      <PopupWithForm name="delete-img" title="Вы уверены?" isOpen={true}>
         <button type="submit" class="submit submit-delete-card">
           Да
         </button>
-      </PopupWidthForm>
+      </PopupWithForm>
     </>
   );
 }
