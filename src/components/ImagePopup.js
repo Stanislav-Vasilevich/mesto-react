@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ImagePopup() {
+function ImagePopup(props) {
   return (
     <>
       <div className="popup popup_type_img popup_delete">

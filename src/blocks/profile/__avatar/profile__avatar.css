@@ -7,12 +7,6 @@
   z-index: 0;
 }
 
-.profile__avatar:hover {
-  /* opacity: .2; */
-  cursor: pointer;
-  background-image: url('../../../images/icons/pencil.svg');
-}
-
 @media screen and (max-width: 677px) {
   .profile__avatar {
     margin: 0 auto;

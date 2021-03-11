@@ -40,6 +40,7 @@ function App() {
         name="edit-avatar"
         title="Обновить аватар"
         isOpen={isEditProfilePopupOpen}
+        closeAllPopups={handleEditAvatarClick}
       >
         <label className="form__label">
           <input
@@ -66,6 +67,7 @@ function App() {
         name="edit-profile"
         title="Редактировать профиль"
         isOpen={isAddPlacePopupOpen}
+        closeAllPopups={handleEditProfileClick}
       >
         <label className="form__label">
           <input
@@ -108,6 +110,7 @@ function App() {
         name="add-cards"
         title="Новое место"
         isOpen={isEditAvatarPopupOpen}
+        closeAllPopups={handleAddPlaceClick}
       >
         <label className="form__label">
           <input
