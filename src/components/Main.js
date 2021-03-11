@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import Card from './Card.js';
 import api from '../utils/Api.js';
 
 function Main(props) {
@@ -8,16 +9,30 @@ function Main(props) {
   const [userAvatar, setUserAvatar] = useState(
     'https://cdn.fishki.net/upload/post/201405/05/1266438/1_kit.jpg'
   );
-  const[cards, setCards] = useState([]);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     api.getUserInfo().then((data) => {
-      console.log(data.avatar);
-
       setUserName(data.name);
       setUserDescription(data.about);
       setUserAvatar(data.avatar);
     });
+  }, []);
+
+  useEffect(() => {
+    api.getDataCards().then((data) => {
+      // console.log(data);
+      const cards = data.map((item) => {
+        console.log(item);
+        return {
+          link: item.link,
+          name: item.name,
+          likes: item.likes,
+          id: item._id,
+        }
+      })
+      setCards(cards);
+    })
   }, []);
 
   return (
@@ -57,7 +72,16 @@ function Main(props) {
         </section>
 
         <section className="grid">
-          <ul className="elements">{/* block for template Cards */}</ul>
+          <ul className="elements">
+            {cards.map((item) => (
+              <Card
+                key={item.id}
+                src={item.link}
+                title={item.name}
+                like={item.likes}
+              />
+            ))}
+          </ul>
         </section>
       </main>
     </>
