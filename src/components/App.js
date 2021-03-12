@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Header from './Header.js';
 import Main from './Main.js';
 import PopupWithForm from './PopupWithForm.js';
@@ -8,14 +8,10 @@ import Footer from './Footer.js';
 import './../index.css';
 
 function App() {
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(
-    false
-  );
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(
-    false
-  );
-  const[selectedCard, setSelectedCard] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(false);
 
   function handleEditAvatarClick() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
@@ -40,6 +36,7 @@ function App() {
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
+        onCardClick={handleCardClick}
       />
       <Footer />
 
@@ -161,6 +158,11 @@ function App() {
           Да
         </button>
       </PopupWithForm>
+
+      <ImagePopup 
+        isOpen={selectedCard} 
+        closeAllPopups={handleCardClick}
+      />
     </>
   );
 }

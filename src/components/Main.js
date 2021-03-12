@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Card from './Card.js';
 import api from '../utils/Api.js';
+import Spinner from './Spinner.js';
 
 function Main(props) {
   const[userName, setUserName] = useState('Whale');
@@ -10,16 +11,18 @@ function Main(props) {
     'https://cdn.fishki.net/upload/post/201405/05/1266438/1_kit.jpg'
   );
   const[cards, setCards] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     api.getUserInfo().then((data) => {
       setUserName(data.name);
       setUserDescription(data.about);
       setUserAvatar(data.avatar);
-    });
+    }).catch(err => console.log(err))
   }, []);
 
   useEffect(() => {
+    setIsLoading(!isLoading);
     api.getDataCards().then((data) => {
       const cards = data.map((item) => {
         return {
@@ -31,6 +34,8 @@ function Main(props) {
       })
       setCards(cards);
     })
+    .catch(err => console.log(err))
+    .finally(() => setIsLoading(isLoading))
   }, []);
 
   return (
@@ -69,10 +74,15 @@ function Main(props) {
           ></button>
         </section>
 
-        <section className="grid">
+        {
+        isLoading 
+        ? <Spinner />
+        : (
+          <section className="grid">
           <ul className="elements">
             {cards.map((item) => (
               <Card
+                onCardClick={item.link}
                 key={item.id}
                 src={item.link}
                 title={item.name}
@@ -81,6 +91,10 @@ function Main(props) {
             ))}
           </ul>
         </section>
+        )
+        }
+
+        
       </main>
     </>
   );

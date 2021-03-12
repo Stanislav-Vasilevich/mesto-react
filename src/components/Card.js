@@ -1,15 +1,20 @@
 import React from 'react';
 
 function Card(props) {
+  function handleClick() {
+    props.onCardClick(props.card);
+  } 
+
   return (
     <>
       <div className="grid__elements">
         <li className="element">
           <figure className="element__figure">
-            <div 
-              className="element__img" 
+            <div
+              onClick={handleClick}
+              className="element__img"
               style={{ backgroundImage: `url(${props.src})` }}
-              alt={props.title} 
+              alt={props.title}
             />
             <button type="button" className="element__button-delete"></button>
           </figure>
