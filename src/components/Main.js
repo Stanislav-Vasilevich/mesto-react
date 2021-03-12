@@ -29,7 +29,6 @@ function Main(props) {
           id: item._id,
         }
       })
-      console.log(cards);
       setCards(cards);
     })
   }, []);

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Header from './Header.js';
 import Main from './Main.js';
 import PopupWithForm from './PopupWithForm.js';
+import ImagePopup from './ImagePopup.js';
 import Footer from './Footer.js';
 import './../index.css';
 
