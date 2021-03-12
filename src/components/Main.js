@@ -4,12 +4,12 @@ import Card from './Card.js';
 import api from '../utils/Api.js';
 
 function Main(props) {
-  const [userName, setUserName] = useState('Whale');
-  const [userDescription, setUserDescription] = useState('Lord of the ocean');
-  const [userAvatar, setUserAvatar] = useState(
+  const[userName, setUserName] = useState('Whale');
+  const[userDescription, setUserDescription] = useState('Lord of the ocean');
+  const[userAvatar, setUserAvatar] = useState(
     'https://cdn.fishki.net/upload/post/201405/05/1266438/1_kit.jpg'
   );
-  const [cards, setCards] = useState([]);
+  const[cards, setCards] = useState([]);
 
   useEffect(() => {
     api.getUserInfo().then((data) => {
@@ -21,9 +21,7 @@ function Main(props) {
 
   useEffect(() => {
     api.getDataCards().then((data) => {
-      // console.log(data);
       const cards = data.map((item) => {
-        console.log(item);
         return {
           link: item.link,
           name: item.name,
@@ -31,6 +29,7 @@ function Main(props) {
           id: item._id,
         }
       })
+      console.log(cards);
       setCards(cards);
     })
   }, []);

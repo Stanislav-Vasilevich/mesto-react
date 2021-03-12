@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import Header from './Header.js';
 import Main from './Main.js';
 import PopupWithForm from './PopupWithForm.js';
@@ -6,13 +7,14 @@ import Footer from './Footer.js';
 import './../index.css';
 
 function App() {
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(
     false
   );
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(
     false
   );
+  const[selectedCard, setSelectedCard] = useState(false);
 
   function handleEditAvatarClick() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
@@ -24,6 +26,10 @@ function App() {
 
   function handleAddPlaceClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+  }
+
+  function handleCardClick() {
+    setSelectedCard(!selectedCard);
   }
 
   return (
@@ -150,7 +156,7 @@ function App() {
       </PopupWithForm>
 
       <PopupWithForm name="delete-img" title="Вы уверены?">
-        <button type="submit" class="submit submit-delete-card">
+        <button type="submit" className="submit submit-delete-card">
           Да
         </button>
       </PopupWithForm>
