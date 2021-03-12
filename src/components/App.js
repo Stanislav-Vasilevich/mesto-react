@@ -160,7 +160,8 @@ function App() {
       </PopupWithForm>
 
       <ImagePopup 
-        isOpen={selectedCard} 
+        // isOpen={selectedCard} 
+        card={selectedCard} 
         closeAllPopups={handleCardClick}
       />
     </>

@@ -2,9 +2,11 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Card from './Card.js';
 import api from '../utils/Api.js';
+import ImagePopup from './ImagePopup.js';
 import Spinner from './Spinner.js';
 
 function Main(props) {
+  console.log(props.card);
   const[userName, setUserName] = useState('Whale');
   const[userDescription, setUserDescription] = useState('Lord of the ocean');
   const[userAvatar, setUserAvatar] = useState(
