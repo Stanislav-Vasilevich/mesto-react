@@ -1,11 +1,12 @@
 import React from 'react';
 
 function Card(props) {
+  console.log(props.card);
+
   function handleClick() {
-    console.log(props.card);
-    console.log(props.onCardClick);
+    // console.log(props.onCardClick);
     // props.onCardClick(props.card);
-  } 
+  }
 
   return (
     <>

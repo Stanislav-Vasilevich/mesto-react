@@ -6,38 +6,43 @@ import ImagePopup from './ImagePopup.js';
 import Spinner from './Spinner.js';
 
 function Main(props) {
-  console.log(props.card);
-  const[userName, setUserName] = useState('Whale');
-  const[userDescription, setUserDescription] = useState('Lord of the ocean');
-  const[userAvatar, setUserAvatar] = useState(
+  // console.log(props.card);
+  const [userName, setUserName] = useState('Whale');
+  const [userDescription, setUserDescription] = useState('Lord of the ocean');
+  const [userAvatar, setUserAvatar] = useState(
     'https://cdn.fishki.net/upload/post/201405/05/1266438/1_kit.jpg'
   );
-  const[cards, setCards] = useState([]);
+  const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    api.getUserInfo().then((data) => {
-      setUserName(data.name);
-      setUserDescription(data.about);
-      setUserAvatar(data.avatar);
-    }).catch(err => console.log(err))
+    api
+      .getUserInfo()
+      .then((data) => {
+        setUserName(data.name);
+        setUserDescription(data.about);
+        setUserAvatar(data.avatar);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
     setIsLoading(!isLoading);
-    api.getDataCards().then((data) => {
-      const cards = data.map((item) => {
-        return {
-          link: item.link,
-          name: item.name,
-          likes: item.likes,
-          id: item._id,
-        }
+    api
+      .getDataCards()
+      .then((data) => {
+        const cards = data.map((item) => {
+          return {
+            link: item.link,
+            name: item.name,
+            likes: item.likes,
+            id: item._id,
+          };
+        });
+        setCards(cards);
       })
-      setCards(cards);
-    })
-    .catch(err => console.log(err))
-    .finally(() => setIsLoading(isLoading))
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(isLoading));
   }, []);
 
   return (
@@ -76,27 +81,25 @@ function Main(props) {
           ></button>
         </section>
 
-        {
-        isLoading 
-        ? <Spinner />
-        : (
+        {isLoading ? (
+          <Spinner />
+        ) : (
           <section className="grid">
-          <ul className="elements">
-            {cards.map((item) => (
-              <Card
-                onCardClick={item.link}
-                key={item.id}
-                src={item.link}
-                title={item.name}
-                like={item.likes}
-              />
-            ))}
-          </ul>
-        </section>
-        )
-        }
+            <ul className="elements">
+              {cards.map((item) => (
+                <Card
+                  onCardClick={item}
+                  key={item.id}
+                  src={item.link}
+                  title={item.name}
+                  like={item.likes}
+                />
+              ))}
+            </ul>
+          </section>
+        )}
 
-        
+        <ImagePopup />
       </main>
     </>
   );
