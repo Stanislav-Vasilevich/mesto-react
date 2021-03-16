@@ -2,11 +2,9 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Card from './Card.js';
 import api from '../utils/Api.js';
-import ImagePopup from './ImagePopup.js';
 import Spinner from './Spinner.js';
 
 function Main(props) {
-  // console.log(props.card);
   const [userName, setUserName] = useState('Whale');
   const [userDescription, setUserDescription] = useState('Lord of the ocean');
   const [userAvatar, setUserAvatar] = useState(
@@ -88,7 +86,8 @@ function Main(props) {
             <ul className="elements">
               {cards.map((item) => (
                 <Card
-                  onCardClick={item}
+                  onCardClick={props.onCardClick}
+                  card={item}
                   key={item.id}
                   src={item.link}
                   title={item.name}
@@ -98,8 +97,6 @@ function Main(props) {
             </ul>
           </section>
         )}
-
-        <ImagePopup />
       </main>
     </>
   );

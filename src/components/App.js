@@ -13,8 +13,12 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
 
-  function handleCardClick() {
-    setSelectedCard({});
+  function handleCardClick(selectedCard) {
+    setSelectedCard(selectedCard);
+  }
+
+  function closeAllPopups() {
+    setSelectedCard(!selectedCard);
   }
 
   function handleEditAvatarClick() {
@@ -159,9 +163,9 @@ function App() {
         </button>
       </PopupWithForm>
 
-      <ImagePopup 
-        card={selectedCard} 
-        closeAllPopups={handleCardClick} 
+      <ImagePopup
+        card={selectedCard}
+        onClose={closeAllPopups}
       />
     </>
   );
