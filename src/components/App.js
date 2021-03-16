@@ -7,10 +7,9 @@ import Footer from './Footer.js';
 import './../index.css';
 
 function App() {
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  // const [onClose, setOnClose] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
 
   function handleCardClick(selectedCard) {
@@ -18,10 +17,10 @@ function App() {
   }
 
   function closeAllPopups() {
-    const popups = document.querySelectorAll('.popup');
-    popups.forEach((item) => {
-      item.classList.remove('popup_opened');
-    });
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setSelectedCard({});
   }
 
   function handleEditAvatarClick() {
