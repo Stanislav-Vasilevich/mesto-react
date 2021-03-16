@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState, useEffect } from 'react';
 import Card from './Card.js';
 import api from '../utils/Api.js';
@@ -24,7 +23,7 @@ function Main(props) {
       .catch((err) => console.log(err));
   }, []);
 
-  useEffect(() => {
+  useEffect((isLoading) => {
     setIsLoading(!isLoading);
     api
       .getDataCards()

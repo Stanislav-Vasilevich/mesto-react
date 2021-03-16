@@ -1,8 +1,6 @@
-import React from 'react';
-
 function ImagePopup(props) {
   return (
-    <div className={`popup popup_type_img popup_delete ${props.card ? 'popup_opened' : ''}`}>
+    <div className={`popup popup_type_img popup_delete ${props.card.link ? 'popup_opened' : ''}`}>
       <div className="popup__overlay"></div>
       <div className="popup__container-img">
         <div className="popup__wrapper">
