@@ -10,6 +10,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  // const [onClose, setOnClose] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
 
   function handleCardClick(selectedCard) {
@@ -17,7 +18,10 @@ function App() {
   }
 
   function closeAllPopups() {
-    setSelectedCard(!selectedCard);
+    const popups = document.querySelectorAll('.popup');
+    popups.forEach((item) => {
+      item.classList.remove('popup_opened');
+    });
   }
 
   function handleEditAvatarClick() {
@@ -47,7 +51,7 @@ function App() {
         name="edit-avatar"
         title="Обновить аватар"
         isOpen={isEditProfilePopupOpen}
-        closeAllPopups={handleEditAvatarClick}
+        onClose={closeAllPopups}
       >
         <label className="form__label">
           <input
@@ -74,7 +78,7 @@ function App() {
         name="edit-profile"
         title="Редактировать профиль"
         isOpen={isAddPlacePopupOpen}
-        closeAllPopups={handleEditProfileClick}
+        onClose={closeAllPopups}
       >
         <label className="form__label">
           <input
@@ -117,7 +121,7 @@ function App() {
         name="add-cards"
         title="Новое место"
         isOpen={isEditAvatarPopupOpen}
-        closeAllPopups={handleAddPlaceClick}
+        onClose={closeAllPopups}
       >
         <label className="form__label">
           <input

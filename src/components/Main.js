@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Card from './Card.js';
-import api from '../utils/Api.js';
+import api from '../utils/api.js';
 import Spinner from './Spinner.js';
 
 function Main(props) {
