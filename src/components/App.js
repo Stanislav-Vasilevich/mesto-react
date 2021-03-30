@@ -1,17 +1,32 @@
-import { useState } from 'react';
+import {useState, useEffect} from 'react';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
 import Header from './Header.js';
 import Main from './Main.js';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import Footer from './Footer.js';
 import './../index.css';
+import api from "../utils/api";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({
+    name: 'Whale',
+    about: 'Lord of the ocean',
+    avatar: 'https://cdn.fishki.net/upload/post/201405/05/1266438/1_kit.jpg'
+  });
+
+  useEffect(() => {
+    api
+      .getUserInfo()
+      .then((data) => {
+        setCurrentUser(data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   function handleCardClick(selectedCard) {
     setSelectedCard(selectedCard);
@@ -37,16 +52,15 @@ function App() {
   }
 
   return (
-    <>
-      <Header />
+    <CurrentUserContext.Provider value={currentUser}>
+      <Header/>
       <Main
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onCardClick={handleCardClick}
       />
-      <Footer />
-
+      <Footer/>
       <PopupWithForm
         name="edit-avatar"
         title="Обновить аватар"
@@ -170,7 +184,7 @@ function App() {
         card={selectedCard}
         onClose={closeAllPopups}
       />
-    </>
+    </CurrentUserContext.Provider>
   );
 }
 

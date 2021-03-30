@@ -3,26 +3,12 @@ import { useState, useEffect } from 'react';
 import Card from './Card.js';
 import api from '../utils/api.js';
 import Spinner from './Spinner.js';
+import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
 function Main(props) {
-  const [userName, setUserName] = useState('Whale');
-  const [userDescription, setUserDescription] = useState('Lord of the ocean');
-  const [userAvatar, setUserAvatar] = useState(
-    'https://cdn.fishki.net/upload/post/201405/05/1266438/1_kit.jpg'
-  );
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    api
-      .getUserInfo()
-      .then((data) => {
-        setUserName(data.name);
-        setUserDescription(data.about);
-        setUserAvatar(data.avatar);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  let currentUser = React.useContext(CurrentUserContext);
 
   useEffect((isLoading) => {
     setIsLoading(!isLoading);
@@ -51,7 +37,7 @@ function Main(props) {
             <div className="profile__avatar">
               <div
                 className="profile__avatar-img"
-                style={{ backgroundImage: `url(${userAvatar})` }}
+                style={{ backgroundImage: `url(${currentUser.avatar})` }}
               ></div>
 
               <div
@@ -62,14 +48,14 @@ function Main(props) {
 
             <div className="profile__edit">
               <div className="profile__title-edit">
-                <h1 className="profile__title">{userName}</h1>
+                <h1 className="profile__title">{currentUser.name}</h1>
                 <button
                   type="submit"
                   onClick={props.onEditProfile}
                   className="profile__edit-button"
                 ></button>
               </div>
-              <p className="profile__subtitle">{userDescription}</p>
+              <p className="profile__subtitle">{currentUser.about}</p>
             </div>
           </div>
           <button
