@@ -14,11 +14,8 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
-  const [currentUser, setCurrentUser] = useState({
-    name: 'Whale',
-    about: 'Lord of the ocean',
-    avatar: 'https://cdn.fishki.net/upload/post/201405/05/1266438/1_kit.jpg'
-  });
+  const [currentUser, setCurrentUser] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     api

@@ -4,14 +4,15 @@ import React from "react";
 function Card(props) {
     const currentUser = React.useContext(CurrentUserContext);
 
-    console.log(currentUser);
+    // console.log(props.card)
 
     // Определяем, являемся ли мы владельцем текущей карточки
+    const card = props.card;
     const isOwn = card.owner._id === currentUser._id;
 
     // Создаём переменную, которую после зададим в `className` для кнопки удаления
     const cardDeleteButtonClassName = (
-        `card__delete-button ${isOwn ? 'card__delete-button_visible' : 'card__delete-button_hidden'}`
+      `${isOwn ? 'element__button-delete_inactive' : 'element__button-delete'}`
     );
 
     // Определяем, есть ли у карточки лайк, поставленный текущим пользователем

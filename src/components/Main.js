@@ -21,6 +21,7 @@ function Main(props) {
             name: item.name,
             likes: item.likes,
             id: item._id,
+            owner: item.owner
           };
         });
         setCards(cards);
@@ -78,6 +79,7 @@ function Main(props) {
                   src={item.link}
                   title={item.name}
                   like={item.likes}
+                  owner={item.owner}
                 />
               ))}
             </ul>
