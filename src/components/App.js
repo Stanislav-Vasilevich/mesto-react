@@ -1,6 +1,6 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
-import {CurrentUserContext, currentUser} from '../contexts/CurrentUserContext';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
 import Header from './Header.js';
 import Main from './Main.js';
 import PopupWithForm from './PopupWithForm.js';
@@ -15,7 +15,6 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     api

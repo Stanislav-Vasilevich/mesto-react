@@ -10,6 +10,8 @@ function Main(props) {
   const [isLoading, setIsLoading] = useState(false);
   const currentUser = React.useContext(CurrentUserContext);
 
+  // console.log(currentUser)
+
   useEffect((isLoading) => {
     setIsLoading(!isLoading);
     api
@@ -36,10 +38,12 @@ function Main(props) {
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
-      .changeLikeCardStatus(card._id, !isLiked)
+      .putLikeCard(card._id, !isLiked)
       .then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    });
+        console.log(newCard)
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    })
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -86,6 +90,7 @@ function Main(props) {
               {cards.map((item) => (
                 <Card
                   onCardClick={props.onCardClick}
+                  onCardLike={handleCardLike}
                   card={item}
                   key={item.id}
                   src={item.link}

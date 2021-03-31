@@ -4,7 +4,8 @@ import React from "react";
 function Card(props) {
     const currentUser = React.useContext(CurrentUserContext);
 
-    // console.log(props.card)
+    console.log(props.card);
+    // console.log(currentUser._id);
 
     // Определяем, являемся ли мы владельцем текущей карточки
     const card = props.card;
@@ -25,6 +26,10 @@ function Card(props) {
         props.onCardClick(props.card);
     }
 
+    function handleLikeClick() {
+        props.onCardLike(props.card);
+    }
+
     return (
         <>
             <div className="grid__elements">
@@ -41,7 +46,7 @@ function Card(props) {
                     <figcaption className="element__group">
                         <h2 className="element__title">{props.title}</h2>
                         <div className="element__like">
-                            <button type="button" className="element__button-like"></button>
+                            <button onClick={handleLikeClick} type="button" className="element__button-like"></button>
                             <div className="element__number-like">{props.like.length}</div>
                         </div>
                     </figcaption>
