@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import Card from './Card.js';
 import api from '../utils/api.js';
 import Spinner from './Spinner.js';
@@ -30,6 +30,18 @@ function Main(props) {
       .finally(() => setIsLoading(isLoading));
   }, []);
 
+  function handleCardLike(card) {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    });
+  }
+
   return (
     <>
       <main className="main">
@@ -38,7 +50,7 @@ function Main(props) {
             <div className="profile__avatar">
               <div
                 className="profile__avatar-img"
-                style={{ backgroundImage: `url(${currentUser.avatar})` }}
+                style={{backgroundImage: `url(${currentUser.avatar})`}}
               ></div>
 
               <div
@@ -67,7 +79,7 @@ function Main(props) {
         </section>
 
         {isLoading ? (
-          <Spinner />
+          <Spinner/>
         ) : (
           <section className="grid">
             <ul className="elements">

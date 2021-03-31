@@ -109,6 +109,17 @@ class Api {
       },
     }).then(this._checkResponse);
   }
+
+  // get data likes from server
+  // changeLikeCardStatus(id) {
+  //   return fetch(`${this._url}cards/likes/${id}`, {
+  //     method: 'GET',
+  //     headers: {
+  //       authorization: `${this._key}`,
+  //         'Content-Type': 'application/json',
+  //       },
+  //   }).then(this._checkResponse);
+  // }
 }
 
 const config = {
