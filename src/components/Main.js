@@ -8,7 +8,7 @@ import {CurrentUserContext} from "../contexts/CurrentUserContext";
 function Main(props) {
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  let currentUser = React.useContext(CurrentUserContext);
+  const currentUser = React.useContext(CurrentUserContext);
 
   useEffect((isLoading) => {
     setIsLoading(!isLoading);

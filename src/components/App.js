@@ -1,5 +1,6 @@
+import React from 'react';
 import {useState, useEffect} from 'react';
-import {CurrentUserContext} from '../contexts/CurrentUserContext';
+import {CurrentUserContext, currentUser} from '../contexts/CurrentUserContext';
 import Header from './Header.js';
 import Main from './Main.js';
 import PopupWithForm from './PopupWithForm.js';

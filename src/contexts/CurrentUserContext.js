@@ -1,9 +1,4 @@
-// import {createContext} from "istanbul-lib-report";
+import React from 'react';
 
-export let CurrentUserContext;
-
-function createContext() {
-  return undefined;
-}
-
-CurrentUserContext = createContext();
+export const currentUser = {};
+export const CurrentUserContext = React.createContext();
