@@ -34,15 +34,16 @@ function Main(props) {
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i._id === currentUser._id); // true или false
+    console.log(isLiked);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
-      .putLikeCard(card._id, !isLiked)
+      .getDataCards(card._id, !isLiked) /* card._id - я уже передал значения карточки */
       .then((newCard) => {
-        console.log(newCard)
+        console.log(newCard);
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    })
+      })
       .catch((err) => console.log(err));
   }
 

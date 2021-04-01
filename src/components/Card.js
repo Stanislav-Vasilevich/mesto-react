@@ -4,16 +4,19 @@ import React from "react";
 function Card(props) {
     const currentUser = React.useContext(CurrentUserContext);
 
-    console.log(props.card);
-    // console.log(currentUser._id);
+    // console.log(props.card); // данные карточки(id, likes, link, name, owner)
+    //console.log(currentUser._id); // мой id
+    // console.log(props.card.id); //
+
 
     // Определяем, являемся ли мы владельцем текущей карточки
     const card = props.card;
+    // console.log(card)
     const isOwn = card.owner._id === currentUser._id;
 
     // Создаём переменную, которую после зададим в `className` для кнопки удаления
     const cardDeleteButtonClassName = (
-      `${isOwn ? 'element__button-delete_inactive' : 'element__button-delete'}`
+      `${isOwn ? '' : 'element__button-delete'}`
     );
 
     // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
@@ -23,7 +26,7 @@ function Card(props) {
     const cardLikeButtonClassName = `...`;
 
     function handleClick() {
-        props.onCardClick(props.card);
+        props.onCardClick(card);
     }
 
     function handleLikeClick() {
