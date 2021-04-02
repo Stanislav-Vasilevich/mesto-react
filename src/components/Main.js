@@ -33,16 +33,34 @@ function Main(props) {
   }, []);
 
   function handleCardLike(card) {
+    //console.log(card) // данные карточки на которую кликнул
+    //console.log(card.likes);
+
+    // card.likes.forEach(item => {
+    //   console.log(item)
+    // })
+
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser._id); // true или false
-    console.log(isLiked);
+    const isLiked = card.likes.some(item => {
+      console.log(item)
+      return item => item._id === currentUser._id
+    });
+
+    // console.log(isLiked) // true или false
+
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
-      .getDataCards(card._id, !isLiked) /* card._id - я уже передал значения карточки */
+      .putLikeCard(card._id, !isLiked) /* card._id - я уже передал значения карточки */
       .then((newCard) => {
-        console.log(newCard);
-        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+        console.log('newCard: ', newCard);
+        setCards(state => {
+          console.log('state: ', state)
+          return state.map((c) => {
+            console.log('c: ', c);
+            return c._id === card._id ? newCard : c;
+          });
+        });
       })
       .catch((err) => console.log(err));
   }
