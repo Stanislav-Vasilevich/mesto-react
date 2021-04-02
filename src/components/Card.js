@@ -16,15 +16,6 @@ function Card(props) {
   // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
   const isLiked = card.likes.some(i => i._id === currentUser._id); // true или false
 
-  // console.log(props.card); // данные карточки(id, likes{}, link, name, owner{})
-  // console.log(props.card.id); //
-  // console.log(card) // данные карточек
-  // console.log(card.owner._id); // id того, кто создал карточку
-  // console.log(currentUser._id); // мой id
-  // console.log(isOwn) // true или false
-  // console.log(cardDeleteButtonClassName) // element__button-delete
-  console.log(isLiked); // передает true когда есть карточка мной добавленная
-
   // Создаём переменную, которую после зададим в `className` для кнопки лайка
   const cardLikeButtonClassName = (
     `element__button-like ${isLiked ? 'element__button-like_focus' : ''}`
@@ -35,7 +26,7 @@ function Card(props) {
   }
 
   function handleLikeClick() {
-    props.onCardLike(props.card);
+    props.onCardLike(card);
   }
 
   return (

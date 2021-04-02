@@ -10,7 +10,7 @@ function Main(props) {
   const [isLoading, setIsLoading] = useState(false);
   const currentUser = React.useContext(CurrentUserContext);
 
-  // console.log(currentUser)
+  //console.log(cards)
 
   useEffect((isLoading) => {
     setIsLoading(!isLoading);
@@ -33,36 +33,14 @@ function Main(props) {
   }, []);
 
   function handleCardLike(card) {
-    //console.log(card) // данные карточки на которую кликнул
-    //console.log(card.likes);
-
-    // card.likes.forEach(item => {
-    //   console.log(item)
-    // })
-
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(item => {
-      console.log(item)
-      return item => item._id === currentUser._id
-    });
-
-    // console.log(isLiked) // true или false
-
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api
-      .putLikeCard(card._id, !isLiked) /* card._id - я уже передал значения карточки */
+    api.changeLikeCardStatus(card.id, !isLiked)
       .then((newCard) => {
-        console.log('newCard: ', newCard);
-        setCards(state => {
-          console.log('state: ', state)
-          return state.map((c) => {
-            console.log('c: ', c);
-            return c._id === card._id ? newCard : c;
-          });
-        });
-      })
-      .catch((err) => console.log(err));
+      setCards((state) => state.map((c) => c.id === card.id ? newCard : c));
+    });
   }
 
   return (

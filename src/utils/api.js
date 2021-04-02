@@ -109,6 +109,17 @@ class Api {
       },
     }).then(this._checkResponse);
   }
+
+  changeLikeCardStatus(id, isLiked) {
+    if(isLiked) {
+      console.log('id: ', id);
+      console.log('isLiked: ', isLiked)
+      //this.deleteLikeCard(id);
+    } else {
+      console.log('hi')
+      //this.putLikeCard(id);
+    }
+  }
 }
 
 const config = {
