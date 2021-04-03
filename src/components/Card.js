@@ -29,6 +29,10 @@ function Card(props) {
     props.onCardLike(card);
   }
 
+  function handleDeleteClick() {
+    props.onCardDelete(card);
+  }
+
   return (
     <>
       <div className="grid__elements">
@@ -40,7 +44,7 @@ function Card(props) {
               style={{backgroundImage: `url(${props.src})`}}
               alt={props.title}
             />
-            <button type="button" className={cardDeleteButtonClassName}></button>
+            <button type="button" onClick={handleDeleteClick} className={cardDeleteButtonClassName}></button>
           </figure>
           <figcaption className="element__group">
             <h2 className="element__title">{props.title}</h2>

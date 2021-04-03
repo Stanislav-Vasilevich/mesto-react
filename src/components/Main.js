@@ -41,6 +41,17 @@ function Main(props) {
     });
   }
 
+  function handleCardDelete(card) {
+    setIsLoading(!isLoading);
+    api.deleteCard(card._id)
+      .then(res => {
+        setIsLoading(!isLoading);
+        const newCard = cards.filter(item => item._id !== card._id);
+        setCards(newCard);
+      })
+      .finally(() => setIsLoading(isLoading));
+  }
+
   return (
     <>
       <main className="main">
@@ -86,6 +97,7 @@ function Main(props) {
                 <Card
                   onCardClick={props.onCardClick}
                   onCardLike={handleCardLike}
+                  onCardDelete={handleCardDelete}
                   card={item}
                   key={item._id}
                   src={item.link}
