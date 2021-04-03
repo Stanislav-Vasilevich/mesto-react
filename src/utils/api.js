@@ -88,37 +88,15 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  // put like by server
-  putLikeCard(id) {
-    return fetch(`${this._url}cards/likes/${id}`, {
-      method: 'PUT',
-      headers: {
-        authorization: `${this._key}`,
-        'Content-Type': 'application/json',
-      },
-    }).then(this._checkResponse);
-  }
-
-  // delete like from server
-  deleteLikeCard(id) {
-    return fetch(`${this._url}cards/likes/${id}`, {
-      method: 'DELETE',
-      headers: {
-        authorization: `${this._key}`,
-        'Content-Type': 'application/json',
-      },
-    }).then(this._checkResponse);
-  }
-
+  // put and delete like by server
   changeLikeCardStatus(id, isLiked) {
-    if(isLiked) {
-      console.log('id: ', id);
-      console.log('isLiked: ', isLiked)
-      this.deleteLikeCard(id);
-    } else {
-      console.log('hi')
-      this.putLikeCard(id);
-    }
+    return fetch(`${this._url}cards/likes/${id}`, {
+      method: isLiked ? 'DELETE' : 'PUT',
+      headers: {
+        authorization: `${this._key}`,
+        'Content-Type': 'application/json',
+      },
+    }).then(this._checkResponse);
   }
 }
 

@@ -10,8 +10,6 @@ function Main(props) {
   const [isLoading, setIsLoading] = useState(false);
   const currentUser = React.useContext(CurrentUserContext);
 
-  //console.log(cards)
-
   useEffect((isLoading) => {
     setIsLoading(!isLoading);
     api
@@ -22,7 +20,7 @@ function Main(props) {
             link: item.link,
             name: item.name,
             likes: item.likes,
-            id: item._id,
+            _id: item._id,
             owner: item.owner
           };
         });
@@ -36,21 +34,11 @@ function Main(props) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
-    if(isLiked) {
-      api.deleteLikeCard(card.id)
-
-    } else {
-      api.putLikeCard(card.id)
-        .then((newCard) => {
-          setCards((state) => state.map((c) => c.id === card.id ? newCard : c));
-        });
-    }
-
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    // api.changeLikeCardStatus(card.id, !isLiked)
-    //   .then((newCard) => {
-    //   setCards((state) => state.map((c) => c.id === card.id ? newCard : c));
-    // });
+    api.changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    });
   }
 
   return (
@@ -99,7 +87,7 @@ function Main(props) {
                   onCardClick={props.onCardClick}
                   onCardLike={handleCardLike}
                   card={item}
-                  key={item.id}
+                  key={item._id}
                   src={item.link}
                   title={item.name}
                   like={item.likes}
