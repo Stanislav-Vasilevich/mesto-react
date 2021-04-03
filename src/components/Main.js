@@ -36,11 +36,21 @@ function Main(props) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
+    if(isLiked) {
+      api.deleteLikeCard(card.id)
+
+    } else {
+      api.putLikeCard(card.id)
+        .then((newCard) => {
+          setCards((state) => state.map((c) => c.id === card.id ? newCard : c));
+        });
+    }
+
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card.id, !isLiked)
-      .then((newCard) => {
-      setCards((state) => state.map((c) => c.id === card.id ? newCard : c));
-    });
+    // api.changeLikeCardStatus(card.id, !isLiked)
+    //   .then((newCard) => {
+    //   setCards((state) => state.map((c) => c.id === card.id ? newCard : c));
+    // });
   }
 
   return (

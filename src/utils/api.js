@@ -114,10 +114,10 @@ class Api {
     if(isLiked) {
       console.log('id: ', id);
       console.log('isLiked: ', isLiked)
-      //this.deleteLikeCard(id);
+      this.deleteLikeCard(id);
     } else {
       console.log('hi')
-      //this.putLikeCard(id);
+      this.putLikeCard(id);
     }
   }
 }
