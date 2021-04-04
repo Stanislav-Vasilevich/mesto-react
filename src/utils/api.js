@@ -47,35 +47,6 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  // patch data user avatar from server
-  // patchUserAvatar(data) {
-  //   return fetch(`${this._url}users/me/avatar`, {
-  //     method: 'PATCH',
-  //     headers: {
-  //       authorization: `${this._key}`,
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       avatar: data['form-avatar'],
-  //     }),
-  //   }).then(this._checkResponse);
-  // }
-
-  // // patch data user from server
-  // patchUserInfo(data) {
-  //   return fetch(`${this._url}users/me/`, {
-  //     method: 'PATCH',
-  //     headers: {
-  //       authorization: `${this._key}`,
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       name: data['form-title'],
-  //       about: data['form-subtitle'],
-  //     }),
-  //   }).then(this._checkResponse);
-  // }
-
   // // patch data user from server
   patchUserInfo(data) {
     return fetch(`${this._url}users/me/`, {
@@ -136,3 +107,32 @@ const config = {
 
 const api = new Api(config);
 export default api;
+
+// patch data user avatar from server
+// patchUserAvatar(data) {
+//   return fetch(`${this._url}users/me/avatar`, {
+//     method: 'PATCH',
+//     headers: {
+//       authorization: `${this._key}`,
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({
+//       avatar: data['form-avatar'],
+//     }),
+//   }).then(this._checkResponse);
+// }
+
+// // patch data user from server
+// patchUserInfo(data) {
+//   return fetch(`${this._url}users/me/`, {
+//     method: 'PATCH',
+//     headers: {
+//       authorization: `${this._key}`,
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({
+//       name: data['form-title'],
+//       about: data['form-subtitle'],
+//     }),
+//   }).then(this._checkResponse);
+// }

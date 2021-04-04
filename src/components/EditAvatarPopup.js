@@ -6,8 +6,6 @@ function EditAvatarPopup(props) {
   const [avatar, setAvatar] = React.useState('');
   const refAvatar = React.useRef(null);
 
-  //console.log(refAvatar)
-
   function handleChangeAvatar(e) {
     setAvatar(e.target.src);
   }
