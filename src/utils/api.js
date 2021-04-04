@@ -42,10 +42,24 @@ class Api {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        avatar: data['form-avatar'],
+        avatar: data.avatar,
       }),
     }).then(this._checkResponse);
   }
+
+  // patch data user avatar from server
+  // patchUserAvatar(data) {
+  //   return fetch(`${this._url}users/me/avatar`, {
+  //     method: 'PATCH',
+  //     headers: {
+  //       authorization: `${this._key}`,
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       avatar: data['form-avatar'],
+  //     }),
+  //   }).then(this._checkResponse);
+  // }
 
   // // patch data user from server
   // patchUserInfo(data) {

@@ -3,19 +3,25 @@ import PopupWithForm from "./PopupWithForm";
 import {useRef} from "react/cjs/react.production.min";
 
 function EditAvatarPopup(props) {
+  const [avatar, setAvatar] = React.useState('');
+  const refAvatar = React.useRef(null);
 
-  const refAvatar = React.useRef();
+  //console.log(refAvatar)
+
+  function handleChangeAvatar(e) {
+    setAvatar(e.target.src);
+  }
 
   function handleSubmit(e) {
+    console.log('нажал на кнопку сохранить в Avatar')
     e.preventDefault();
 
     props.onUpdateAvatar({
-      //avatar: /* Значение инпута, полученное с помощью рефа */,
-      // avatar: avatar
+      avatar: refAvatar.current,
     });
   }
 
-  console.log('refAvatar: ', refAvatar.current);
+  console.log('data: ', refAvatar.current);
 
   return (
     <PopupWithForm
@@ -28,6 +34,8 @@ function EditAvatarPopup(props) {
       <label className="form__label">
         <input
           ref={refAvatar}
+          onChange={handleChangeAvatar}
+          src={avatar}
           type="url"
           name="form-avatar"
           id="description-input-avatar"
@@ -42,7 +50,7 @@ function EditAvatarPopup(props) {
             Необходимо заполнить данное поле
           </span>
       </label>
-      <button type="submit" className="form__submit" disabled>
+      <button type="submit" className="form__submit">
         Сохранить
       </button>
     </PopupWithForm>

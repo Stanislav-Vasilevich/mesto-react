@@ -17,7 +17,11 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
 
   const [selectedCard, setSelectedCard] = useState({});
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = React.useState({
+    avatar: 'Загрузка',
+    name: 'Загрузка',
+    about: 'Загрузка'
+  });
 
   useEffect(() => {
     api
@@ -45,7 +49,6 @@ function App() {
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
-    console.log('открыть popup edit')
   }
 
   function handleAddPlaceClick() {
@@ -58,19 +61,20 @@ function App() {
       about: about
     })
       .then(res => {
-        setCurrentUser({name, about});
+        // setCurrentUser({name, about});
+        console.log('ага')
       })
       .finally(() => {
         closeAllPopups();
       })
   }
 
-  function onUpdateAvatar({avatar}) {
+  function handleUpdateAvatar(avatarLink) {
     api.patchUserAvatar({
-      avatar: avatar
+      avatar: avatarLink.src
     })
       .then(res => {
-        setCurrentUser({avatar});
+        setCurrentUser({avatarLink});
       })
       .finally(() => {
         closeAllPopups();
@@ -88,9 +92,8 @@ function App() {
       />
       <Footer/>
 
-      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} handleUpdateAvatar={onUpdateAvatar}/>
-
-      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
+      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
 
       <PopupWithForm
         name="add-cards"
