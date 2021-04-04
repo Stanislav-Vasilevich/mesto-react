@@ -51,6 +51,19 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
+  function handleUpdateUser({name, about}) {
+    api.patchUserInfo({
+      name: name,
+      about: about
+    })
+      .then(res => {
+        setCurrentUser({name, about});
+      })
+      .finally(() => {
+        closeAllPopups();
+      })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header/>
@@ -88,7 +101,7 @@ function App() {
         </button>
       </PopupWithForm>
 
-      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
       <PopupWithForm
         name="add-cards"

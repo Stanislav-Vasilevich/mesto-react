@@ -47,7 +47,22 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  // patch data user from server
+  // // patch data user from server
+  // patchUserInfo(data) {
+  //   return fetch(`${this._url}users/me/`, {
+  //     method: 'PATCH',
+  //     headers: {
+  //       authorization: `${this._key}`,
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       name: data['form-title'],
+  //       about: data['form-subtitle'],
+  //     }),
+  //   }).then(this._checkResponse);
+  // }
+
+  // // patch data user from server
   patchUserInfo(data) {
     return fetch(`${this._url}users/me/`, {
       method: 'PATCH',
@@ -56,8 +71,8 @@ class Api {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: data['form-title'],
-        about: data['form-subtitle'],
+        name: data.name,
+        about: data.about,
       }),
     }).then(this._checkResponse);
   }
