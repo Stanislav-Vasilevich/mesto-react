@@ -9,6 +9,7 @@ import Footer from './Footer.js';
 import './../index.css';
 import api from "../utils/api";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -64,6 +65,18 @@ function App() {
       })
   }
 
+  function onUpdateAvatar({avatar}) {
+    api.patchUserAvatar({
+      avatar: avatar
+    })
+      .then(res => {
+        setCurrentUser({avatar});
+      })
+      .finally(() => {
+        closeAllPopups();
+      })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header/>
@@ -74,32 +87,8 @@ function App() {
         onCardClick={handleCardClick}
       />
       <Footer/>
-      <PopupWithForm
-        name="edit-avatar"
-        title="Обновить аватар"
-        isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}
-      >
-        <label className="form__label">
-          <input
-            type="url"
-            name="form-avatar"
-            id="description-input-avatar"
-            className="form__input form__input_url-avatar"
-            placeholder="Ссылка на картинку"
-            required
-          />
-          <span
-            id="description-input-avatar-error"
-            className="form__input-error form__input-error_avatar"
-          >
-            Необходимо заполнить данное поле
-          </span>
-        </label>
-        <button type="submit" className="form__submit" disabled>
-          Сохранить
-        </button>
-      </PopupWithForm>
+
+      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} handleUpdateAvatar={onUpdateAvatar}/>
 
       <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
