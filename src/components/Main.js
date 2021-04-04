@@ -37,8 +37,8 @@ function Main(props) {
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    });
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      });
   }
 
   function handleCardDelete(card) {
@@ -61,12 +61,11 @@ function Main(props) {
               <div
                 className="profile__avatar-img"
                 style={{backgroundImage: `url(${currentUser.avatar})`}}
-              ></div>
-
+              />
               <div
                 className="profile__overlay"
                 onClick={props.onEditAvatar}
-              ></div>
+              />
             </div>
 
             <div className="profile__edit">
@@ -76,7 +75,7 @@ function Main(props) {
                   type="submit"
                   onClick={props.onEditProfile}
                   className="profile__edit-button"
-                ></button>
+                />
               </div>
               <p className="profile__subtitle">{currentUser.about}</p>
             </div>
@@ -85,7 +84,7 @@ function Main(props) {
             type="submit"
             className="profile__add"
             onClick={props.onAddPlace}
-          ></button>
+          />
         </section>
 
         {isLoading ? (

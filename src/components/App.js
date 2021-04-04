@@ -8,11 +8,13 @@ import ImagePopup from './ImagePopup.js';
 import Footer from './Footer.js';
 import './../index.css';
 import api from "../utils/api";
+import EditProfilePopup from "./EditProfilePopup";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
 
@@ -37,15 +39,16 @@ function App() {
   }
 
   function handleEditAvatarClick() {
-    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   }
 
   function handleEditProfileClick() {
-    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+    console.log('открыть popup edit')
   }
 
   function handleAddPlaceClick() {
-    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
   return (
@@ -61,7 +64,7 @@ function App() {
       <PopupWithForm
         name="edit-avatar"
         title="Обновить аватар"
-        isOpen={isEditProfilePopupOpen}
+        isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
       >
         <label className="form__label">
@@ -85,53 +88,12 @@ function App() {
         </button>
       </PopupWithForm>
 
-      <PopupWithForm
-        name="edit-profile"
-        title="Редактировать профиль"
-        isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}
-      >
-        <label className="form__label">
-          <input
-            type="text"
-            name="form-title"
-            id="title-input"
-            className="form__input form__input_name"
-            placeholder="Имя"
-            required
-          />
-          <span
-            id="title-input-error"
-            className="form__input-error form__input-error_name"
-          >
-            Необходимо заполнить данное поле
-          </span>
-        </label>
-        <label className="form__label">
-          <input
-            type="text"
-            name="form-subtitle"
-            id="subtitle-input"
-            className="form__input form__input_job"
-            placeholder="О себе"
-            required
-          />
-          <span
-            id="subtitle-input-error"
-            className="form__input-error form__input-error_job"
-          >
-            Необходимо заполнить данное поле
-          </span>
-        </label>
-        <button type="submit" className="form__submit">
-          Сохранить
-        </button>
-      </PopupWithForm>
+      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
 
       <PopupWithForm
         name="add-cards"
         title="Новое место"
-        isOpen={isEditAvatarPopupOpen}
+        isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
       >
         <label className="form__label">
