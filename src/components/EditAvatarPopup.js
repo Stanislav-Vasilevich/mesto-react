@@ -3,7 +3,11 @@ import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup(props) {
   const [avatar, setAvatar] = React.useState('');
+<<<<<<< HEAD
   const refInput = React.useRef();
+=======
+  const refAvatar = React.useRef();
+>>>>>>> f97a02c5301c2792364aeacbb1713679b454bf09
 
   function handleChangeAvatar(event) {
     setAvatar(event.target.value);
@@ -13,10 +17,19 @@ function EditAvatarPopup(props) {
     event.preventDefault();
 
     props.onUpdateAvatar({
+<<<<<<< HEAD
       avatar: refInput.current.value,
     });
   }
 
+=======
+      // avatar: refAvatar.current,
+    });
+  }
+
+  console.log(refAvatar.current);
+
+>>>>>>> f97a02c5301c2792364aeacbb1713679b454bf09
   return (
     <PopupWithForm
       name="edit-avatar"
