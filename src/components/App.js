@@ -61,7 +61,7 @@ function App() {
       about: about
     })
       .then(res => {
-        // setCurrentUser({name, about});
+        setCurrentUser({name, about});
         console.log('ага')
       })
       .finally(() => {
@@ -69,9 +69,9 @@ function App() {
       })
   }
 
-  function handleUpdateAvatar(avatarLink) {
+  function handleUpdateAvatar({avatarLink}) {
     api.patchUserAvatar({
-      avatar: avatarLink.src
+      avatar: avatarLink
     })
       .then(res => {
         setCurrentUser({avatarLink});

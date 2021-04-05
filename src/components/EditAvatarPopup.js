@@ -4,7 +4,7 @@ import {useRef} from "react/cjs/react.production.min";
 
 function EditAvatarPopup(props) {
   const [avatar, setAvatar] = React.useState('');
-  const refAvatar = React.useRef(null);
+  const refAvatar = React.useRef();
 
   function handleChangeAvatar(e) {
     setAvatar(e.target.src);
@@ -15,11 +15,11 @@ function EditAvatarPopup(props) {
     e.preventDefault();
 
     props.onUpdateAvatar({
-      avatar: refAvatar.current,
+      // avatar: refAvatar.current,
     });
   }
 
-  console.log('data: ', refAvatar.current);
+  console.log(refAvatar.current);
 
   return (
     <PopupWithForm
