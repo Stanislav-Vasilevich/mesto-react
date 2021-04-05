@@ -62,29 +62,17 @@ function App() {
       about: about
     })
       .then(res => {
-<<<<<<< HEAD
         currentUser.name = res.name;
         currentUser.about = res.about;
-=======
-        setCurrentUser({name, about});
-        console.log('ага')
->>>>>>> f97a02c5301c2792364aeacbb1713679b454bf09
       })
       .finally(() => {
         closeAllPopups();
       })
   }
 
-<<<<<<< HEAD
   // Отправка данных для изменения аватара
   function handleUpdateAvatar(avatar) {
     api.patchUserAvatar(avatar)
-=======
-  function handleUpdateAvatar({avatarLink}) {
-    api.patchUserAvatar({
-      avatar: avatarLink
-    })
->>>>>>> f97a02c5301c2792364aeacbb1713679b454bf09
       .then(res => {
         currentUser.avatar = res.avatar;
       })
