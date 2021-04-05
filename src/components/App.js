@@ -16,12 +16,34 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
 
+  const [cards, setCards] = useState([]);
+
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = React.useState({
     avatar: '../images/spinner/loader.gif',
     name: 'Загрузка',
     about: 'Загрузка'
   });
+
+  useEffect((isLoading) => {
+    setIsLoading(!isLoading);
+    api
+      .getDataCards()
+      .then((data) => {
+        const cards = data.map((item) => {
+          return {
+            link: item.link,
+            name: item.name,
+            likes: item.likes,
+            _id: item._id,
+            owner: item.owner
+          };
+        });
+        setCards(cards);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(isLoading));
+  }, []);
 
   useEffect(() => {
     api
@@ -31,6 +53,28 @@ function App() {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  function handleCardLike(card) {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      });
+  }
+
+  function handleCardDelete(card) {
+    setIsLoading(!isLoading);
+    api.deleteCard(card._id)
+      .then(res => {
+        setIsLoading(!isLoading);
+        const newCard = cards.filter(item => item._id !== card._id);
+        setCards(newCard);
+      })
+      .finally(() => setIsLoading(isLoading));
+  }
 
   function handleCardClick(selectedCard) {
     setSelectedCard(selectedCard);
