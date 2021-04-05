@@ -1,25 +1,21 @@
 import React from 'react';
 import PopupWithForm from "./PopupWithForm";
-import {useRef} from "react/cjs/react.production.min";
 
 function EditAvatarPopup(props) {
   const [avatar, setAvatar] = React.useState('');
-  const refAvatar = React.useRef(null);
+  const refInput = React.useRef();
 
-  function handleChangeAvatar(e) {
-    setAvatar(e.target.src);
+  function handleChangeAvatar(event) {
+    setAvatar(event.target.value);
   }
 
-  function handleSubmit(e) {
-    console.log('нажал на кнопку сохранить в Avatar')
-    e.preventDefault();
+  function handleSubmit(event) {
+    event.preventDefault();
 
     props.onUpdateAvatar({
-      avatar: refAvatar.current,
+      avatar: refInput.current.value,
     });
   }
-
-  console.log('data: ', refAvatar.current);
 
   return (
     <PopupWithForm
@@ -31,9 +27,9 @@ function EditAvatarPopup(props) {
     >
       <label className="form__label">
         <input
-          ref={refAvatar}
+          ref={refInput}
           onChange={handleChangeAvatar}
-          src={avatar}
+          value={avatar}
           type="url"
           name="form-avatar"
           id="description-input-avatar"

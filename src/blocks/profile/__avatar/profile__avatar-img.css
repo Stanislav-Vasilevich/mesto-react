@@ -1,4 +1,5 @@
 .profile__avatar-img {
+  background-image: url('../../../images/spinner/loader.gif');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

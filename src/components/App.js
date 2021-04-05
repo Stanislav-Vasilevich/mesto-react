@@ -18,7 +18,7 @@ function App() {
 
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = React.useState({
-    avatar: 'Загрузка',
+    avatar: '../images/spinner/loader.gif',
     name: 'Загрузка',
     about: 'Загрузка'
   });
@@ -55,26 +55,26 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
+  // Отправка данных для изменения данных профиля
   function handleUpdateUser({name, about}) {
     api.patchUserInfo({
       name: name,
       about: about
     })
       .then(res => {
-        // setCurrentUser({name, about});
-        console.log('ага')
+        currentUser.name = res.name;
+        currentUser.about = res.about;
       })
       .finally(() => {
         closeAllPopups();
       })
   }
 
-  function handleUpdateAvatar(avatarLink) {
-    api.patchUserAvatar({
-      avatar: avatarLink.src
-    })
+  // Отправка данных для изменения аватара
+  function handleUpdateAvatar(avatar) {
+    api.patchUserAvatar(avatar)
       .then(res => {
-        setCurrentUser({avatarLink});
+        currentUser.avatar = res.avatar;
       })
       .finally(() => {
         closeAllPopups();

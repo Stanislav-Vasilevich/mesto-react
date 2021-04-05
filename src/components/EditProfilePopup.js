@@ -21,11 +21,8 @@ function EditProfilePopup(props) {
   }
 
   function handleSubmit(e) {
-    console.log('нажал на кнопку сохранить в Edit')
-    // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
 
-    // Передаём значения управляемых компонентов во внешний обработчик
     props.onUpdateUser({
       name,
       about
