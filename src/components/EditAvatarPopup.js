@@ -17,7 +17,6 @@ function EditAvatarPopup(props) {
     });
   }
 
-
   return (
     <PopupWithForm
       name="edit-avatar"

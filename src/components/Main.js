@@ -1,15 +1,14 @@
 import React from 'react';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import Card from './Card.js';
 import api from '../utils/api.js';
 import Spinner from './Spinner.js';
-import {CurrentUserContext} from "../contexts/CurrentUserContext";
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main(props) {
-  const [isLoading, setIsLoading] = useState(false);
+  const cards = props.cards;
+  const isLoading = props.isLoading;
   const currentUser = React.useContext(CurrentUserContext);
-
-  console.log(props)
 
   return (
     <>
@@ -19,12 +18,9 @@ function Main(props) {
             <div className="profile__avatar">
               <div
                 className="profile__avatar-img"
-                style={{backgroundImage: `url(${currentUser.avatar})`}}
+                style={{ backgroundImage: `url(${currentUser.avatar})` }}
               />
-              <div
-                className="profile__overlay"
-                onClick={props.onEditAvatar}
-              />
+              <div className="profile__overlay" onClick={props.onEditAvatar} />
             </div>
 
             <div className="profile__edit">
@@ -47,15 +43,15 @@ function Main(props) {
         </section>
 
         {isLoading ? (
-          <Spinner/>
+          <Spinner />
         ) : (
           <section className="grid">
             <ul className="elements">
               {cards.map((item) => (
                 <Card
                   onCardClick={props.onCardClick}
-                  onCardLike={handleCardLike}
-                  onCardDelete={handleCardDelete}
+                  onCardLike={props.handleCardLike}
+                  onCardDelete={props.handleCardDelete}
                   card={item}
                   key={item._id}
                   src={item.link}
