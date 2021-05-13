@@ -26,8 +26,8 @@ function Main(props) {
             <div className="profile__edit">
               <div className="profile__title-edit">
                 <h1 className="profile__title">{currentUser.name}</h1>
+                {/* Кнопка октрытия popup редактирования профиля */}
                 <button
-                  type="submit"
                   onClick={props.onEditProfile}
                   className="profile__edit-button"
                 />
@@ -35,6 +35,7 @@ function Main(props) {
               <p className="profile__subtitle">{currentUser.about}</p>
             </div>
           </div>
+          {/* Кнопка открытия popup для добавления карточки */}
           <button
             type="submit"
             className="profile__add"

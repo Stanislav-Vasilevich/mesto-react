@@ -1,13 +1,42 @@
-function AddPlacePopup() {
+import React from 'react';
+import PopupWithForm from "./PopupWithForm";
+
+function AddPlacePopup(props) {
+  const [place, setPlace] = React.useState('');
+  const [link, setLink] = React.useState('');
+
+  function handleChangePlace(e) {
+    setPlace(e.target.value);
+  }
+
+  function handleChangeLink(e) {
+    setLink(e.target.value);
+  }
+
+  function handleSubmit(event) {
+    // Запрещаем браузеру переходить по адресу формы
+    event.preventDefault();
+
+    // Передаём значения управляемых компонентов во внешний обработчик
+    props.onAddPlaceSubmit({
+      place,
+      link
+    })
+  }
+  
   return (
     <PopupWithForm
       name="add-cards"
       title="Новое место"
-      isOpen={isAddPlacePopupOpen}
-      onClose={closeAllPopups}
+      isOpen={props.isOpen}
+      onClose={props.onClose}
+      handleAddPlaceClick={props.isAddPlacePopupOpen}
+      onSubmit={handleSubmit}
     >
       <label className="form__label">
         <input
+          onChange={handleChangePlace}
+          value={place}
           type="text"
           name="form-title"
           id="name-input"
@@ -24,6 +53,8 @@ function AddPlacePopup() {
       </label>
       <label className="form__label">
         <input
+          onChange={handleChangeLink}
+          value={link}
           type="url"
           name="form-subtitle"
           id="description-input"

@@ -10,6 +10,7 @@ import './../index.css';
 import api from '../utils/api';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -24,6 +25,7 @@ function App() {
     about: 'Загрузка',
   });
 
+  // получаем данные с сервера и вставляем в объект currentUser
   useEffect(() => {
     api
       .getUserInfo()
@@ -48,16 +50,21 @@ function App() {
             owner: item.owner,
           };
         });
+        // setCards([newCard, ...cards]);
         setCards(cards);
       })
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(isLoading));
   }, []);
 
+  function handleAddPlaceSubmit() {
+    // setCards([newCard, ...cards]);
+    console.log('hi');
+  }
+
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
       setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
@@ -92,10 +99,12 @@ function App() {
   }
 
   function handleEditProfileClick() {
+    console.log('нажал на открытие попапа редактирования профиля');
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
   }
 
   function handleAddPlaceClick() {
+    console.log('нажал на открытие попапа с добавлением карточки');
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
@@ -129,7 +138,10 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
+      {/* шапка сайта */}
       <Header />
+
+      {/* главный блок сайта */}
       <Main
         isLoading={isLoading}
         onEditAvatar={handleEditAvatarClick}
@@ -140,7 +152,10 @@ function App() {
         handleCardLike={handleCardLike}
         handleCardDelete={handleCardDelete}
       />
+
+      {/* подвал сайта */}
       <Footer />
+
       {/* попап редактирования аватара */}
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
@@ -148,15 +163,19 @@ function App() {
         onUpdateAvatar={handleUpdateAvatar}
       />
 
-      {/* попап с формой для добавления карточки */}
+      {/* попап с формой редактирования профиля */}
       <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
         onUpdateUser={handleUpdateUser}
       />
 
-      {/* попап с формой для добавления карточки */}
-      <AddPlacePopup isOpen={handleAddPlaceClick} onClose={closeAllPopups} />
+      {/* попап с формой добавления карточки */}
+      <AddPlacePopup 
+        isOpen={isAddPlacePopupOpen} 
+        onClose={closeAllPopups} 
+        onAddPlaceSubmit={handleAddPlaceSubmit}
+      />
 
       {/* попап подтверждения удаления карточки */}
       <PopupWithForm name="delete-img" title="Вы уверены?">
@@ -165,6 +184,7 @@ function App() {
         </button>
       </PopupWithForm>
 
+      {/* попап с картинкой и заголовком карточки */}
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </CurrentUserContext.Provider>
   );
