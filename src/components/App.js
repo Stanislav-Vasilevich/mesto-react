@@ -42,6 +42,7 @@ function App() {
       .getDataCards()
       .then((data) => {
         const cards = data.map((item) => {
+          console.log(item); // item - объект карточки
           return {
             link: item.link,
             name: item.name,
@@ -50,16 +51,35 @@ function App() {
             owner: item.owner,
           };
         });
-        // setCards([newCard, ...cards]);
         setCards(cards);
       })
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(isLoading));
   }, []);
 
-  function handleAddPlaceSubmit() {
-    // setCards([newCard, ...cards]);
-    console.log('hi');
+  // добавляем новую карточку
+  function handleAddPlaceSubmit(card) {
+    console.log(card.name); // заголовок карточки
+    console.log(card.link); // ссылка на картинку
+    console.log(cards);
+
+    setIsLoading(!isLoading);
+    // здесь нужно отправить запрос в API
+    api
+    .postDataCard(card)
+    .then((data) => {
+      console.log(data);
+      setIsLoading(!isLoading);
+      cards.map((item) => {
+        const newCard = item;
+        setCards([newCard, ...cards]);
+      });
+    })
+    .catch((err) => {
+      console.log('Ошибка отправки данных на сервер');
+    })
+    .finally(() => setIsLoading(isLoading));
+    console.log('тут будет добавляться карточка');
   }
 
   function handleCardLike(card) {
@@ -99,12 +119,10 @@ function App() {
   }
 
   function handleEditProfileClick() {
-    console.log('нажал на открытие попапа редактирования профиля');
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
   }
 
   function handleAddPlaceClick() {
-    console.log('нажал на открытие попапа с добавлением карточки');
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
@@ -144,9 +162,9 @@ function App() {
       {/* главный блок сайта */}
       <Main
         isLoading={isLoading}
-        onEditAvatar={handleEditAvatarClick}
-        onEditProfile={handleEditProfileClick}
-        onAddPlace={handleAddPlaceClick}
+        onEditAvatarClick={handleEditAvatarClick}
+        onEditProfileClick={handleEditProfileClick}
+        onAddPlaceClick={handleAddPlaceClick}
         onCardClick={handleCardClick}
         cards={cards}
         handleCardLike={handleCardLike}
@@ -174,7 +192,7 @@ function App() {
       <AddPlacePopup 
         isOpen={isAddPlacePopupOpen} 
         onClose={closeAllPopups} 
-        onAddPlaceSubmit={handleAddPlaceSubmit}
+        onAddPlace={handleAddPlaceSubmit}
       />
 
       {/* попап подтверждения удаления карточки */}

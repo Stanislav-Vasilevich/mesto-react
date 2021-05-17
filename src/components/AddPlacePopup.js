@@ -2,24 +2,26 @@ import React from 'react';
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup(props) {
-  const [place, setPlace] = React.useState('');
+  const [name, setName] = React.useState('');
   const [link, setLink] = React.useState('');
 
-  function handleChangePlace(e) {
-    setPlace(e.target.value);
+  function handleChangePlace(event) {
+    setName(event.target.value);
   }
 
-  function handleChangeLink(e) {
-    setLink(e.target.value);
+  function handleChangeLink(event) {
+    setLink(event.target.value);
   }
 
   function handleSubmit(event) {
     // Запрещаем браузеру переходить по адресу формы
     event.preventDefault();
 
+    console.log(`${event.target} - Нажал на добавление карточки`);
+
     // Передаём значения управляемых компонентов во внешний обработчик
-    props.onAddPlaceSubmit({
-      place,
+    props.onAddPlace({
+      name,
       link
     })
   }
@@ -36,7 +38,7 @@ function AddPlacePopup(props) {
       <label className="form__label">
         <input
           onChange={handleChangePlace}
-          value={place}
+          value={name}
           type="text"
           name="form-title"
           id="name-input"
@@ -69,7 +71,7 @@ function AddPlacePopup(props) {
           Необходимо заполнить данное поле
         </span>
       </label>
-      <button type="submit" className="form__submit " disabled>
+      <button type="submit" className="form__submit">
         Создать
       </button>
     </PopupWithForm>

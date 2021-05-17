@@ -1,12 +1,10 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
 import Card from './Card.js';
-import api from '../utils/api.js';
 import Spinner from './Spinner.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main(props) {
-  const cards = props.cards;
+  const cards = props.cards; // массив с объектами карточек
   const isLoading = props.isLoading;
   const currentUser = React.useContext(CurrentUserContext);
 
@@ -20,7 +18,7 @@ function Main(props) {
                 className="profile__avatar-img"
                 style={{ backgroundImage: `url(${currentUser.avatar})` }}
               />
-              <div className="profile__overlay" onClick={props.onEditAvatar} />
+              <div className="profile__overlay" onClick={props.onEditAvatarClick} />
             </div>
 
             <div className="profile__edit">
@@ -28,7 +26,7 @@ function Main(props) {
                 <h1 className="profile__title">{currentUser.name}</h1>
                 {/* Кнопка октрытия popup редактирования профиля */}
                 <button
-                  onClick={props.onEditProfile}
+                  onClick={props.onEditProfileClick}
                   className="profile__edit-button"
                 />
               </div>
@@ -39,7 +37,7 @@ function Main(props) {
           <button
             type="submit"
             className="profile__add"
-            onClick={props.onAddPlace}
+            onClick={props.onAddPlaceClick}
           />
         </section>
 
@@ -53,6 +51,7 @@ function Main(props) {
                   onCardClick={props.onCardClick}
                   onCardLike={props.handleCardLike}
                   onCardDelete={props.handleCardDelete}
+                  onAddPlace={props.handleAddPlaceSubmit}
                   card={item}
                   key={item._id}
                   src={item.link}

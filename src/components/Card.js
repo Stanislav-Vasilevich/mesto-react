@@ -5,7 +5,7 @@ function Card(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
   // Определяем, являемся ли мы владельцем текущей карточки
-  const card = props.card;
+  const card = props.card; // объекты карточек
   const isOwn = card.owner._id === currentUser._id;
 
   // Создаём переменную, которую после зададим в `className` для кнопки удаления
@@ -22,7 +22,7 @@ function Card(props) {
   );
 
   function handleClick() {
-    props.onCardClick(card);
+    props.onCardClick(card); // card - объект карточки
   }
 
   function handleLikeClick() {
