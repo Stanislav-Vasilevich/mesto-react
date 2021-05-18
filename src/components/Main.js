@@ -48,10 +48,10 @@ function Main(props) {
             <ul className="elements">
               {cards.map((item) => (
                 <Card
-                  onCardClick={props.onCardClick}
                   onCardLike={props.handleCardLike}
                   onCardDelete={props.handleCardDelete}
                   onAddPlace={props.handleAddPlaceSubmit}
+                  onCardClick={props.onCardClick}
                   card={item}
                   key={item._id}
                   src={item.link}

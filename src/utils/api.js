@@ -73,8 +73,6 @@ class Api {
       body: JSON.stringify({
         name: data.name,
         link: data.link
-        // name: data['form-title'],
-        // link: data['form-subtitle'],
       }),
     }).then(this._checkResponse);
   }

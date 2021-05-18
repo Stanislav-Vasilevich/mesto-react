@@ -42,13 +42,13 @@ function App() {
       .getDataCards()
       .then((data) => {
         const cards = data.map((item) => {
-          console.log(item); // item - объект карточки
           return {
             link: item.link,
             name: item.name,
             likes: item.likes,
             _id: item._id,
             owner: item.owner,
+            date: item.createdAt
           };
         });
         setCards(cards);
@@ -57,29 +57,54 @@ function App() {
       .finally(() => setIsLoading(isLoading));
   }, []);
 
-  // добавляем новую карточку
-  function handleAddPlaceSubmit(card) {
-    console.log(card.name); // заголовок карточки
-    console.log(card.link); // ссылка на картинку
-    console.log(cards);
-
-    setIsLoading(!isLoading);
-    // здесь нужно отправить запрос в API
+  // Отправка данных для изменения данных профиля
+  function handleUpdateUser({ name, about }) {
     api
-    .postDataCard(card)
-    .then((data) => {
-      console.log(data);
-      setIsLoading(!isLoading);
-      cards.map((item) => {
-        const newCard = item;
-        setCards([newCard, ...cards]);
+      .patchUserInfo({
+        name: name,
+        about: about,
+      })
+      .then((res) => {
+        currentUser.name = res.name;
+        currentUser.about = res.about;
+      })
+      .finally(() => {
+        closeAllPopups();
       });
+  }
+
+  // Отправка данных для изменения аватара
+  function handleUpdateAvatar(avatar) {
+    api
+      .patchUserAvatar(avatar)
+      .then((res) => {
+        currentUser.avatar = res.avatar;
+      })
+      .finally(() => {
+        closeAllPopups();
+      });
+  }
+
+  // отправляем новую карточку на сервер
+  function handleAddPlaceSubmit({name, link}) {
+    setIsLoading(!isLoading);
+    api
+    .postDataCard({
+      name: name,
+      link: link
+    })
+    .then((data) => {
+      setIsLoading(!isLoading);
+      const newCard = data;
+      setCards([newCard, ...cards]);
     })
     .catch((err) => {
       console.log('Ошибка отправки данных на сервер');
     })
-    .finally(() => setIsLoading(isLoading));
-    console.log('тут будет добавляться карточка');
+    .finally(() => {
+      setIsLoading(isLoading);
+      closeAllPopups();
+    })
   }
 
   function handleCardLike(card) {
@@ -124,34 +149,6 @@ function App() {
 
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
-  }
-
-  // Отправка данных для изменения данных профиля
-  function handleUpdateUser({ name, about }) {
-    api
-      .patchUserInfo({
-        name: name,
-        about: about,
-      })
-      .then((res) => {
-        currentUser.name = res.name;
-        currentUser.about = res.about;
-      })
-      .finally(() => {
-        closeAllPopups();
-      });
-  }
-
-  // Отправка данных для изменения аватара
-  function handleUpdateAvatar(avatar) {
-    api
-      .patchUserAvatar(avatar)
-      .then((res) => {
-        currentUser.avatar = res.avatar;
-      })
-      .finally(() => {
-        closeAllPopups();
-      });
   }
 
   return (

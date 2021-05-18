@@ -17,13 +17,14 @@ function AddPlacePopup(props) {
     // Запрещаем браузеру переходить по адресу формы
     event.preventDefault();
 
-    console.log(`${event.target} - Нажал на добавление карточки`);
-
     // Передаём значения управляемых компонентов во внешний обработчик
     props.onAddPlace({
       name,
       link
     })
+
+    setName('');
+    setLink('');
   }
   
   return (
