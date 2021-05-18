@@ -48,7 +48,6 @@ function App() {
             likes: item.likes,
             _id: item._id,
             owner: item.owner,
-            date: item.createdAt
           };
         });
         setCards(cards);
