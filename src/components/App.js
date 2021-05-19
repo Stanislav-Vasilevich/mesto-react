@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import {useState, useEffect} from 'react';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
 import Header from './Header.js';
 import Main from './Main.js';
 import PopupWithForm from './PopupWithForm.js';
@@ -25,7 +25,7 @@ function App() {
     about: 'Загрузка',
   });
 
-  // получаем данные с сервера и вставляем в объект currentUser
+  // получаем данные аватара и профиля с сервера
   useEffect(() => {
     api
       .getUserInfo()
@@ -35,86 +35,82 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
-  // получаем данные с сервера и возвращаем массив объектов карточек
-  useEffect((isLoading) => {
+  // получаем массив объектов карточек с сервера
+  useEffect(() => {
     setIsLoading(!isLoading);
     api
       .getDataCards()
       .then((data) => {
-        const cards = data.map((item) => {
-          return {
-            link: item.link,
-            name: item.name,
-            likes: item.likes,
-            _id: item._id,
-            owner: item.owner,
-          };
-        });
-        setCards(cards);
+        setCards(data);
       })
       .catch((err) => console.log(err))
-      .finally(() => setIsLoading(isLoading));
+      .finally(() => setIsLoading(false));
   }, []);
 
   // Отправка данных для изменения данных профиля
-  function handleUpdateUser({ name, about }) {
+  function handleUpdateUser({name, about}) {
+    setIsLoading(!isLoading);
     api
       .patchUserInfo({
         name: name,
         about: about,
       })
       .then((res) => {
-        currentUser.name = res.name;
-        currentUser.about = res.about;
-      })
-      .finally(() => {
+        setCurrentUser(res);
         closeAllPopups();
-      });
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   }
 
   // Отправка данных для изменения аватара
   function handleUpdateAvatar(avatar) {
+    setIsLoading(!isLoading);
     api
       .patchUserAvatar(avatar)
       .then((res) => {
-        currentUser.avatar = res.avatar;
-      })
-      .finally(() => {
+        setCurrentUser(res);
         closeAllPopups();
-      });
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   }
 
   // отправляем новую карточку на сервер
   function handleAddPlaceSubmit({name, link}) {
     setIsLoading(!isLoading);
     api
-    .postDataCard({
-      name: name,
-      link: link
-    })
-    .then((data) => {
-      setIsLoading(!isLoading);
-      const newCard = data;
-      setCards([newCard, ...cards]);
-    })
-    .catch((err) => {
-      console.log('Ошибка отправки данных на сервер');
-    })
-    .finally(() => {
-      setIsLoading(isLoading);
-      closeAllPopups();
-    })
+      .postDataCard({
+        name: name,
+        link: link
+      })
+      .then((data) => {
+        setIsLoading(!isLoading);
+        const newCard = data;
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log('Ошибка отправки данных на сервер');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
   }
 
+  // отправка данных для лайка карточки
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
+    api.changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+      })
+      .catch((err) => console.log(err));
   }
 
+  // отправка данных для удаления карточки
   function handleCardDelete(card) {
     setIsLoading(!isLoading);
     api
@@ -124,7 +120,8 @@ function App() {
         const newCard = cards.filter((item) => item._id !== card._id);
         setCards(newCard);
       })
-      .finally(() => setIsLoading(isLoading));
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   }
 
   function handleCardClick(selectedCard) {
@@ -153,7 +150,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       {/* шапка сайта */}
-      <Header />
+      <Header/>
 
       {/* главный блок сайта */}
       <Main
@@ -168,7 +165,7 @@ function App() {
       />
 
       {/* подвал сайта */}
-      <Footer />
+      <Footer/>
 
       {/* попап редактирования аватара */}
       <EditAvatarPopup
@@ -185,9 +182,9 @@ function App() {
       />
 
       {/* попап с формой добавления карточки */}
-      <AddPlacePopup 
-        isOpen={isAddPlacePopupOpen} 
-        onClose={closeAllPopups} 
+      <AddPlacePopup
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
         onAddPlace={handleAddPlaceSubmit}
       />
 
@@ -199,7 +196,7 @@ function App() {
       </PopupWithForm>
 
       {/* попап с картинкой и заголовком карточки */}
-      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
     </CurrentUserContext.Provider>
   );
 }

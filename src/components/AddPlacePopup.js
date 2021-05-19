@@ -35,6 +35,7 @@ function AddPlacePopup(props) {
       onClose={props.onClose}
       handleAddPlaceClick={props.isAddPlacePopupOpen}
       onSubmit={handleSubmit}
+      buttonText={'Создать'}
     >
       <label className="form__label">
         <input
@@ -72,9 +73,6 @@ function AddPlacePopup(props) {
           Необходимо заполнить данное поле
         </span>
       </label>
-      <button type="submit" className="form__submit">
-        Создать
-      </button>
     </PopupWithForm>
   );
 }
